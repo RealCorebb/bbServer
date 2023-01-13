@@ -5,7 +5,8 @@ import time
 font = ImageFont.truetype('fonts/Jorolks.ttf',24)
 smallJorolks = ImageFont.truetype('fonts/Jorolks.ttf',10)
 seledom = ImageFont.truetype('fonts/Seledom.otf',14)
-device = pygame()
+pixelCorebb = ImageFont.truetype('fonts/PixelCorebb.ttf',7)
+device = pygame( transform='none',scale=4)
 
 def bootLogo():
     with canvas(device) as draw:
@@ -31,6 +32,7 @@ def mcStatus():
         draw.text((5,17), "TPS", fill="black", font = smallJorolks)
         draw.text((28,14), str(tps), fill="white",font = seledom)
         draw.text((98,5), str(playerCount), fill="white",font= font)
+        draw.text((20,50), "Corebb killed Foambb 哈哈", fill="white",font= pixelCorebb)
         #draw rounded rectangle
         
 
