@@ -35,16 +35,33 @@ cpu = 50
 playerCount = 0
 console = ""
 
+eventPos = 0
+isEvent = False
+eventIcon = None
+eventMsg = ""
 def event(icon,msg):
+    while isEvent == True:
+        time.sleep(1)
+    global isEvent,eventIcon,eventPos,eventMsg
+    isEvent = True
+    eventMsg = msg
+    eventPos = 0
+    eventIcon = globals()[icon]
+    print('event:')
     for i in range(0,15):
-        draw.bitmap((0,128 - i),globals()[icon],fill="white")
-        draw.text((0,128 - i), msg, fill="white",font= pixelCorebb)
+        eventPos = 128 - i
+        #draw.bitmap((0,128 - i),globals()[icon],fill="white")
+        #draw.text((0,128 - i), msg, fill="white",font= pixelCorebb)
+        mcStatus()
         time.sleep(0.03)
     time.sleep(1)
     for i in range(0,15):
-        draw.bitmap((0,50 + i),globals()[icon],fill="white")
-        draw.text((0,50 + i), msg, fill="white",font= pixelCorebb)
+        eventPos = (128 - 15) + i
+        #draw.bitmap((0,50 + i),globals()[icon],fill="white")
+        #draw.text((0,50 + i), msg, fill="white",font= pixelCorebb)
+        mcStatus()
         time.sleep(0.03)
+    isEvent = False
 
 pos = 0
 playersLen = 10
@@ -96,6 +113,12 @@ def mcStatus():
     l,t,r,b = draw.multiline_textbbox((5, 20), console,font= pixelCorebb)
     draw.text((2,85-b), console, fill="white",font= pixelCorebb)
     draw.rectangle((0, 0, 128, 32), fill="black")
+
+    if isEvent == True:
+        draw.rectangle((0, 32, 128, 64), fill="black")
+        draw.bitmap((0,eventPos),eventIcon,fill="white")
+        draw.text((0,eventPos), eventMsg, fill="white",font= pixelCorebb)
+
     draw.bitmap((69,2),player,fill="white")
     #draw.bitmap((5,5),performance,fill="white")
     draw.rounded_rectangle((2,2,25,11), radius=3, fill="white")
