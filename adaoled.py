@@ -1,3 +1,4 @@
+import threading
 import board
 import digitalio
 from PIL import Image, ImageDraw, ImageFont
@@ -8,7 +9,9 @@ font = ImageFont.truetype('fonts/Jorolks.ttf',24)
 smallJorolks = ImageFont.truetype('fonts/Jorolks.ttf',10)
 seledom = ImageFont.truetype('fonts/Seledom.otf',14)
 pixelCorebb = ImageFont.truetype('fonts/PixelCorebb.ttf',8)
+pixelCorebbBig = ImageFont.truetype('fonts/PixelCorebb.ttf',14)
 player = Image.open('icons/steve24.png')
+player16 = Image.open('icons/steve16.png')
 performance = Image.open('icons/performance.png')
 
 
@@ -30,6 +33,35 @@ cpu = 50
 playerCount = 0
 console = ""
 
+def event(icon,msg):
+    for i in range(0,15):
+        draw.bitmap((0,128 - i),globals()[icon],fill="white")
+        draw.text((0,128 - i), msg, fill="white",font= pixelCorebb)
+        time.sleep(0.03)
+    time.sleep(1)
+    for i in range(0,15):
+        draw.bitmap((0,50 + i),globals()[icon],fill="white")
+        draw.text((0,50 + i), msg, fill="white",font= pixelCorebb)
+        time.sleep(0.03)
+
+pos = 0
+playersLen = 10
+def loop():
+    #substring players from pos to pos + playersLen
+    global pos,playersLen
+    while True:
+        if(len(players) > playersLen):
+            if(pos + playersLen >= len(players)):
+                pos = 0
+            else:
+                pos += 1
+            draw.text((0,14), players[pos:pos+playersLen], fill="white",font = pixelCorebbBig)
+            mcStatus()
+        time.sleep(0.1)
+
+loopThread = threading.Thread(target=loop)
+loopThread.start()    
+
 def updateInfo(pl = None ,c = None ,p = None , co = None):
     global players,cpu,playerCount,console
     if pl is not None:
@@ -40,7 +72,7 @@ def updateInfo(pl = None ,c = None ,p = None , co = None):
         playerCount = p
     if co is not None:
         console = co
-    mcStatus()
+    #mcStatus()
 
 
 def clear():
@@ -66,7 +98,7 @@ def mcStatus():
     draw.text((5,3), "CPU", fill="black", font = smallJorolks)
     draw.text((28,0), str(cpu)+"%", fill="white",font = seledom)
     draw.rounded_rectangle((2,16,25,25), radius=3, fill="white")
-    draw.text((5,17), "TPS", fill="black", font = smallJorolks)
+    #draw.text((5,17), "TPS", fill="black", font = smallJorolks)
     draw.text((28,14), str(players), fill="white",font = seledom)
     draw.text((98,5), str(playerCount), fill="white",font= font)
     oled.image(image)

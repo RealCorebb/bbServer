@@ -3,7 +3,7 @@ url = '/opt/mcsmanager/daemon/data/InstanceData/98a44a22da7e4b84954e6a023a15910a
 import subprocess
 import threading
 import time
-from adaoled import mcStatus, updateInfo
+from adaoled import mcStatus, updateInfo , event
 import textwrap
 import psutil
 from mcstatus import JavaServer
@@ -37,21 +37,17 @@ p = subprocess.Popen(["tail", "-f", url, "-n", "5"], stdout=subprocess.PIPE)
 msg = ''
 # Poll the subprocess for new output until it terminates
 while p.poll() is None:
-    #print('start Log Monitor')
     data = p.stdout.readline().decode("utf-8").split(']:')
     if (len(data) > 1):
         line = data[1]
-        #print(line)
         if line:
-            #print('\n' in line)
+            if('joined the game' in line):
+                event('player',line.split('joined the game')[0] + '加入了游戏')
+            elif('was slain by' in line):
+                event('deadPlayer',line.split('was slain by')[0] + '被杀掉了')
+
             msg += line
-            #print(msg)
-    #print(len(msg.split('\n')))
-    #print (len(msg.splitlines()))
     if(len(msg.splitlines())>=5):
         msg = msg.split('\n', 1)[1]
-        #print(msg)
         wrapMsg = textwrap.fill(msg,width=42,replace_whitespace=False)
-        #print(wrapMsg)
         updateInfo(co = wrapMsg)
-        #mcStatus(console=wrapMsg)
