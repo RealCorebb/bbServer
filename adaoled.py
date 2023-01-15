@@ -8,6 +8,7 @@ import adafruit_ssd1306
 font = ImageFont.truetype('fonts/Jorolks.ttf',24)
 smallJorolks = ImageFont.truetype('fonts/Jorolks.ttf',10)
 seledom = ImageFont.truetype('fonts/Seledom.otf',14)
+bigSeledom = ImageFont.truetype('fonts/Seledom.otf',24)
 pixelCorebb = ImageFont.truetype('fonts/PixelCorebb.ttf',8)
 pixelCorebbBig = ImageFont.truetype('fonts/PixelCorebb.ttf',14)
 player = Image.open('icons/steve24.png')
@@ -29,6 +30,7 @@ image = Image.new("1", (oled.width, oled.height))
 draw = ImageDraw.Draw(image)
 
 players = ""
+playersScroll = ""
 cpu = 50
 playerCount = 0
 console = ""
@@ -48,16 +50,18 @@ pos = 0
 playersLen = 10
 def loop():
     #substring players from pos to pos + playersLen
-    global pos,playersLen
+    print('Start Loop')
+    global pos,playersLen,playersScroll
     while True:
         if(len(players) > playersLen):
             if(pos + playersLen >= len(players)):
                 pos = 0
             else:
                 pos += 1
-            draw.text((0,14), players[pos:pos+playersLen], fill="white",font = pixelCorebbBig)
-            mcStatus()
-        time.sleep(0.1)
+            playersScroll = players[pos:pos+playersLen]
+            print(playersScroll)
+        mcStatus()
+        time.sleep(0.2)
 
 loopThread = threading.Thread(target=loop)
 loopThread.start()    
@@ -97,9 +101,10 @@ def mcStatus():
     draw.rounded_rectangle((2,2,25,11), radius=3, fill="white")
     draw.text((5,3), "CPU", fill="black", font = smallJorolks)
     draw.text((28,0), str(cpu)+"%", fill="white",font = seledom)
-    draw.rounded_rectangle((2,16,25,25), radius=3, fill="white")
+    #draw.rounded_rectangle((2,16,25,25), radius=3, fill="white")
     #draw.text((5,17), "TPS", fill="black", font = smallJorolks)
-    draw.text((28,14), str(players), fill="white",font = seledom)
+    #draw.text((28,14), str(players), fill="white",font = seledom)
+    draw.text((0,14),playersScroll, fill="white" , font = pixelCorebbBig)
     draw.text((98,5), str(playerCount), fill="white",font= font)
     oled.image(image)
     oled.show()

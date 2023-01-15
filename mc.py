@@ -14,8 +14,8 @@ def getMC():
         server = JavaServer.lookup("127.0.0.1:25565")
         status = server.status()
         query = server.query()
-        print(status.players.online)
-        print(query.players.names)
+        #print(status.players.online)
+        #print(query.players.names)
         updateInfo(p=status.players.online,pl='  '.join(query.players.names))
         time.sleep(5)
 
