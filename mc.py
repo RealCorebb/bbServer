@@ -42,9 +42,11 @@ while p.poll() is None:
         line = data[1]
         if line:
             if('joined the game' in line):
-                event('player',line.split('joined the game')[0] + '加入了游戏')
+                event('player16',line.split('joined the game')[0] + '加入了游戏')
             elif('was slain by' in line):
-                event('deadPlayer',line.split('was slain by')[0] + '被杀掉了')
+                event('player16',line.split('was slain by')[0] + '被杀掉了')
+            elif('fell from a high place' in line):
+                event('player16',line.split('fell from a high place')[0] + '摔死了')
 
             msg += line
     if(len(msg.splitlines())>=5):

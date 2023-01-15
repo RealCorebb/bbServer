@@ -40,27 +40,28 @@ isEvent = False
 eventIcon = None
 eventMsg = ""
 def event(icon,msg):
+    global isEvent,eventIcon,eventPos,eventMsg
     while isEvent == True:
         time.sleep(1)
-    global isEvent,eventIcon,eventPos,eventMsg
     isEvent = True
     eventMsg = msg
     eventPos = 0
     eventIcon = globals()[icon]
-    print('event:')
-    for i in range(0,15):
-        eventPos = 128 - i
+    print('event:',msg)
+    for i in range(0,18):
+        eventPos = 64 - i
         #draw.bitmap((0,128 - i),globals()[icon],fill="white")
         #draw.text((0,128 - i), msg, fill="white",font= pixelCorebb)
         mcStatus()
-        time.sleep(0.03)
+        time.sleep(0.01)
     time.sleep(1)
-    for i in range(0,15):
-        eventPos = (128 - 15) + i
+    for i in range(0,18):
+        eventPos = (64 - 18) + i
         #draw.bitmap((0,50 + i),globals()[icon],fill="white")
         #draw.text((0,50 + i), msg, fill="white",font= pixelCorebb)
         mcStatus()
-        time.sleep(0.03)
+        time.sleep(0.01)
+    print('event done')
     isEvent = False
 
 pos = 0
@@ -76,7 +77,7 @@ def loop():
             else:
                 pos += 1
             playersScroll = players[pos:pos+playersLen]
-            print(playersScroll)
+            #print(playersScroll)
         mcStatus()
         time.sleep(0.2)
 
@@ -108,16 +109,18 @@ def bootLogo():
     oled.show()
 
 def mcStatus():
+    global isEvent
     #image = Image.new("1", (oled.width, oled.height))
     clear()
     l,t,r,b = draw.multiline_textbbox((5, 20), console,font= pixelCorebb)
-    draw.text((2,85-b), console, fill="white",font= pixelCorebb)
-    draw.rectangle((0, 0, 128, 32), fill="black")
+    draw.text((2,83-b), console, fill="white",font= pixelCorebb)
+    draw.rectangle((0, -5, 128, 32), fill="black")
 
-    if isEvent == True:
-        draw.rectangle((0, 32, 128, 64), fill="black")
+    if (isEvent == True):
+        print(eventPos)
+        draw.rectangle((0, eventPos-2, 128, 64), fill="black")
         draw.bitmap((0,eventPos),eventIcon,fill="white")
-        draw.text((0,eventPos), eventMsg, fill="white",font= pixelCorebb)
+        draw.text((20,eventPos), eventMsg, fill="white",font= pixelCorebb)
 
     draw.bitmap((69,2),player,fill="white")
     #draw.bitmap((5,5),performance,fill="white")
