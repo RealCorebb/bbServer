@@ -35,6 +35,36 @@ cpu = 50
 playerCount = 0
 console = ""
 
+
+def mcStatus():
+    global isEvent
+    #image = Image.new("1", (oled.width, oled.height))
+    clear()
+    l,t,r,b = draw.multiline_textbbox((5, 20), console,font= pixelCorebb)
+    draw.text((2,83-b), console, fill="white",font= pixelCorebb)
+    draw.rectangle((0, -5, 128, 32), fill="black")
+
+    if (isEvent == True):
+        print(eventPos)
+        draw.rectangle((0, eventPos-2, 128, 64), fill="black")
+        draw.bitmap((0,eventPos),eventIcon,fill="white")
+        draw.text((20,eventPos), eventMsg, fill="white",font= pixelCorebb)
+
+    draw.bitmap((69,2),player,fill="white")
+    #draw.bitmap((5,5),performance,fill="white")
+    draw.rounded_rectangle((2,2,25,11), radius=3, fill="white")
+    draw.text((5,3), "CPU", fill="black", font = smallJorolks)
+    draw.text((28,0), str(cpu)+"%", fill="white",font = seledom)
+    #draw.rounded_rectangle((2,16,25,25), radius=3, fill="white")
+    #draw.text((5,17), "TPS", fill="black", font = smallJorolks)
+    #draw.text((28,14), str(players), fill="white",font = seledom)
+    draw.text((0,14),playersScroll, fill="white" , font = pixelCorebbBig)
+    draw.text((98,5), str(playerCount), fill="white",font= font)
+    oled.image(image)
+    oled.show()
+
+
+#Event
 eventPos = 0
 isEvent = False
 eventIcon = None
@@ -105,33 +135,6 @@ def clear():
 
 def bootLogo():
     draw.text((5, 20), "bbServer", fill="white", font = font)
-    oled.image(image)
-    oled.show()
-
-def mcStatus():
-    global isEvent
-    #image = Image.new("1", (oled.width, oled.height))
-    clear()
-    l,t,r,b = draw.multiline_textbbox((5, 20), console,font= pixelCorebb)
-    draw.text((2,83-b), console, fill="white",font= pixelCorebb)
-    draw.rectangle((0, -5, 128, 32), fill="black")
-
-    if (isEvent == True):
-        print(eventPos)
-        draw.rectangle((0, eventPos-2, 128, 64), fill="black")
-        draw.bitmap((0,eventPos),eventIcon,fill="white")
-        draw.text((20,eventPos), eventMsg, fill="white",font= pixelCorebb)
-
-    draw.bitmap((69,2),player,fill="white")
-    #draw.bitmap((5,5),performance,fill="white")
-    draw.rounded_rectangle((2,2,25,11), radius=3, fill="white")
-    draw.text((5,3), "CPU", fill="black", font = smallJorolks)
-    draw.text((28,0), str(cpu)+"%", fill="white",font = seledom)
-    #draw.rounded_rectangle((2,16,25,25), radius=3, fill="white")
-    #draw.text((5,17), "TPS", fill="black", font = smallJorolks)
-    #draw.text((28,14), str(players), fill="white",font = seledom)
-    draw.text((0,14),playersScroll, fill="white" , font = pixelCorebbBig)
-    draw.text((98,5), str(playerCount), fill="white",font= font)
     oled.image(image)
     oled.show()
 
