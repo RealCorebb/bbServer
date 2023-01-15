@@ -35,6 +35,11 @@ cpu = 50
 playerCount = 0
 console = ""
 
+def clear():
+    global image
+    #image = Image.new("1", (oled.width, oled.height))
+    draw.rectangle((0, 0, 128, 64), fill="black")
+    oled.fill(0)
 
 def mcStatus():
     global isEvent
@@ -125,13 +130,6 @@ def updateInfo(pl = None ,c = None ,p = None , co = None):
     if co is not None:
         console = co
     #mcStatus()
-
-
-def clear():
-    global image
-    #image = Image.new("1", (oled.width, oled.height))
-    draw.rectangle((0, 0, 128, 64), fill="black")
-    oled.fill(0)
 
 def bootLogo():
     draw.text((5, 20), "bbServer", fill="white", font = font)
