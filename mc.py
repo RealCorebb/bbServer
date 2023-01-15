@@ -7,9 +7,20 @@ from adaoled import mcStatus, updateInfo
 import textwrap
 import psutil
 
+
+def getCPU():
+    while True:
+        cpu = int(psutil.cpu_percent(interval=1))
+        updateInfo(c=cpu)
+        time.sleep(1)
+
+#create a thread to get cpu usage
+cpuThread = threading.Thread(target=getCPU)
+cpuThread.start()
+
+
 # Open the "tail" command as a subprocess
 p = subprocess.Popen(["tail", "-f", url, "-n", "5"], stdout=subprocess.PIPE)
-
 msg = ''
 # Poll the subprocess for new output until it terminates
 while p.poll() is None:
@@ -29,14 +40,3 @@ while p.poll() is None:
         wrapMsg = textwrap.fill(msg,width=42,replace_whitespace=False)
         print(wrapMsg)
         mcStatus(console=wrapMsg)
-
-
-def getCPU():
-    while True:
-        cpu = int(psutil.cpu_percent(interval=1))
-        updateInfo(c=cpu)
-        time.sleep(1)
-
-#create a thread to get cpu usage
-cpuThread = threading.Thread(target=getCPU)
-cpuThread.start()
