@@ -28,15 +28,19 @@ draw = ImageDraw.Draw(image)
 tps = 20
 cpu = 50
 playerCount = 0
+console = ""
 
-def updateInfo(t,c,p):
-    global tps,cpu,playerCount
+def updateInfo(t = None ,c = None ,p = None , co = None):
+    global tps,cpu,playerCount,console
     if t is not None:
         tps = t
     if c is not None:
         cpu = c
     if p is not None:
         playerCount = p
+    if co is not None:
+        console = co
+    mcStatus()
 
 
 def clear():
@@ -50,7 +54,7 @@ def bootLogo():
     oled.image(image)
     oled.show()
 
-def mcStatus(tps=20,cpu=50,playerCount=0,console=""):
+def mcStatus():
     #image = Image.new("1", (oled.width, oled.height))
     clear()
     l,t,r,b = draw.multiline_textbbox((5, 20), console,font= pixelCorebb)

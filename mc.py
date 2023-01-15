@@ -9,6 +9,7 @@ import psutil
 
 
 def getCPU():
+    print('start CPU Monitor')
     while True:
         cpu = int(psutil.cpu_percent(interval=1))
         updateInfo(c=cpu)
@@ -24,6 +25,7 @@ p = subprocess.Popen(["tail", "-f", url, "-n", "5"], stdout=subprocess.PIPE)
 msg = ''
 # Poll the subprocess for new output until it terminates
 while p.poll() is None:
+    print('start Log Monitor')
     data = p.stdout.readline().decode("utf-8").split(']:')
     if (len(data) > 1):
         line = data[1]
@@ -38,5 +40,6 @@ while p.poll() is None:
         msg = msg.split('\n', 1)[1]
         #print(msg)
         wrapMsg = textwrap.fill(msg,width=42,replace_whitespace=False)
-        print(wrapMsg)
-        mcStatus(console=wrapMsg)
+        #print(wrapMsg)
+        updateInfo(co = wrapMsg)
+        #mcStatus(console=wrapMsg)
