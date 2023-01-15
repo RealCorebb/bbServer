@@ -14,6 +14,8 @@ def getMC():
         server = JavaServer.lookup("127.0.0.1:25565")
         status = server.status()
         query = server.query()
+        print(status.players.online)
+        print(query.players.names)
         updateInfo(p=status.players.online,pl='  '.join(query.players.names))
         time.sleep(5)
 
@@ -27,14 +29,15 @@ def getCPU():
 #create a thread to get cpu usage
 cpuThread = threading.Thread(target=getCPU)
 cpuThread.start()
-
+mcThread = threading.Thread(target=getMC)
+mcThread.start()
 
 # Open the "tail" command as a subprocess
 p = subprocess.Popen(["tail", "-f", url, "-n", "5"], stdout=subprocess.PIPE)
 msg = ''
 # Poll the subprocess for new output until it terminates
 while p.poll() is None:
-    print('start Log Monitor')
+    #print('start Log Monitor')
     data = p.stdout.readline().decode("utf-8").split(']:')
     if (len(data) > 1):
         line = data[1]
