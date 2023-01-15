@@ -25,6 +25,20 @@ oled.show()
 image = Image.new("1", (oled.width, oled.height))
 draw = ImageDraw.Draw(image)
 
+tps = 20
+cpu = 50
+playerCount = 0
+
+def updateInfo(t,c,p):
+    global tps,cpu,playerCount
+    if t is not None:
+        tps = t
+    if c is not None:
+        cpu = c
+    if p is not None:
+        playerCount = p
+
+
 def clear():
     global image
     #image = Image.new("1", (oled.width, oled.height))
