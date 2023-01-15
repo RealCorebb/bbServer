@@ -25,15 +25,15 @@ oled.show()
 image = Image.new("1", (oled.width, oled.height))
 draw = ImageDraw.Draw(image)
 
-tps = 20
+players = ""
 cpu = 50
 playerCount = 0
 console = ""
 
-def updateInfo(t = None ,c = None ,p = None , co = None):
-    global tps,cpu,playerCount,console
-    if t is not None:
-        tps = t
+def updateInfo(pl = None ,c = None ,p = None , co = None):
+    global players,cpu,playerCount,console
+    if pl is not None:
+        players = pl
     if c is not None:
         cpu = c
     if p is not None:
@@ -67,7 +67,7 @@ def mcStatus():
     draw.text((28,0), str(cpu)+"%", fill="white",font = seledom)
     draw.rounded_rectangle((2,16,25,25), radius=3, fill="white")
     draw.text((5,17), "TPS", fill="black", font = smallJorolks)
-    draw.text((28,14), str(tps), fill="white",font = seledom)
+    draw.text((28,14), str(players), fill="white",font = seledom)
     draw.text((98,5), str(playerCount), fill="white",font= font)
     oled.image(image)
     oled.show()

@@ -6,7 +6,16 @@ import time
 from adaoled import mcStatus, updateInfo
 import textwrap
 import psutil
+from mcstatus import JavaServer
 
+def getMC():
+    print('start MC Monitor')
+    while True:
+        server = JavaServer.lookup("127.0.0.1:25565")
+        status = server.status()
+        query = server.query()
+        updateInfo(p=status.players.online,pl='  '.join(query.players.names))
+        time.sleep(5)
 
 def getCPU():
     print('start CPU Monitor')
