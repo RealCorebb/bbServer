@@ -50,7 +50,7 @@ def mcStatus():
     draw.rectangle((0, -5, 128, 32), fill="black")
 
     if (isEvent == True):
-        print(eventPos)
+        #print(eventPos)
         draw.rectangle((0, eventPos-2, 128, 64), fill="black")
         draw.bitmap((0,eventPos),eventIcon,fill="white")
         draw.text((20,eventPos), eventMsg, fill="white",font= pixelCorebb)
@@ -82,7 +82,7 @@ def event(icon,msg):
     eventMsg = msg
     eventPos = 0
     eventIcon = globals()[icon]
-    print('event:',msg)
+    #print('event:',msg)
     for i in range(0,18):
         eventPos = 64 - i
         #draw.bitmap((0,128 - i),globals()[icon],fill="white")
@@ -96,7 +96,7 @@ def event(icon,msg):
         #draw.text((0,50 + i), msg, fill="white",font= pixelCorebb)
         mcStatus()
         time.sleep(0.01)
-    print('event done')
+    #print('event done')
     isEvent = False
 
 pos = 0
