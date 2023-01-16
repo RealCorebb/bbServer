@@ -88,14 +88,14 @@ def event(icon,msg):
         #draw.bitmap((0,128 - i),globals()[icon],fill="white")
         #draw.text((0,128 - i), msg, fill="white",font= pixelCorebb)
         mcStatus()
-        time.sleep(0.01)
+        time.sleep(0.05)
     time.sleep(1)
     for i in range(0,18):
         eventPos = (64 - 18) + i
         #draw.bitmap((0,50 + i),globals()[icon],fill="white")
         #draw.text((0,50 + i), msg, fill="white",font= pixelCorebb)
         mcStatus()
-        time.sleep(0.01)
+        time.sleep(0.05)
     print('event done')
     isEvent = False
 
@@ -104,7 +104,7 @@ playersLen = 10
 def loop():
     #substring players from pos to pos + playersLen
     print('Start Loop')
-    global pos,playersLen,playersScroll
+    global pos,playersLen,playersScroll,isEvent
     while True:
         if(len(players) > playersLen):
             if(pos + playersLen >= len(players)):
@@ -113,7 +113,8 @@ def loop():
                 pos += 1
             playersScroll = players[pos:pos+playersLen]
             #print(playersScroll)
-        mcStatus()
+        if(isEvent == False):
+            mcStatus()
         time.sleep(0.2)
 
 loopThread = threading.Thread(target=loop)
