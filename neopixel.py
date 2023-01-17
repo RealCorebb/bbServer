@@ -31,9 +31,9 @@ import time
 # Update to match the pin connected to your NeoPixels
 pixel_pin = board.SPI()
 # Update to match the number of NeoPixels you have connected
-pixel_num = 32
+pixel_num = 40
 
-pixels = neopixel_spi.NeoPixel_SPI(pixel_pin, pixel_num, brightness=0.5, auto_write=False)
+pixels = neopixel_spi.NeoPixel_SPI(pixel_pin, pixel_num, brightness=0.1, auto_write=False)
 
 blink = Blink(pixels, speed=0.5, color=JADE)
 colorcycle = ColorCycle(pixels, speed=0.4, colors=[MAGENTA, ORANGE])

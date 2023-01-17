@@ -23,6 +23,7 @@ oled = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c)
 
 # Clear display.
 oled.fill(0)
+oled.rotate(False)
 oled.show()
 
 # Create blank image for drawing.
@@ -117,8 +118,9 @@ def loop():
             mcStatus()
         time.sleep(0.2)
 
-loopThread = threading.Thread(target=loop)
-loopThread.start()    
+def startLoop():
+    loopThread = threading.Thread(target=loop)
+    loopThread.start()    
 
 def updateInfo(pl = None ,c = None ,p = None , co = None):
     global players,cpu,playerCount,console
@@ -138,10 +140,11 @@ def bootLogo():
     oled.show()
 
 def startup():
+    clear()
     bootLogo()
     time.sleep(1)
     clear()
-    mcStatus()
+    #mcStatus()
 
 if __name__ == "__main__":  
     startup()

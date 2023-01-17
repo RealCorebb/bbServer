@@ -3,11 +3,13 @@ url = '/opt/mcsmanager/daemon/data/InstanceData/98a44a22da7e4b84954e6a023a15910a
 import subprocess
 import threading
 import time
-from adaoled import mcStatus, updateInfo , event
+from adaoled import mcStatus, updateInfo , event , startup , startLoop
 import textwrap
 import psutil
 from mcstatus import JavaServer
 
+startup()
+startLoop()
 def getMC():
     print('start MC Monitor')
     while True:
