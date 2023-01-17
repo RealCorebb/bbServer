@@ -32,7 +32,7 @@ def getCPU():
 def neopixel(type):
     print('start Neopixel')
     if(type == 'join'):
-        for i in range(0, 200):
+        for i in range(0, 300):
             rainbow.animate()
             time.sleep(0.01)
     elif(type == 'kill'):
@@ -58,17 +58,17 @@ while p.poll() is None:
         line = data[1]
         if line:
             if('joined the game' in line):
-                event('player16',line.split('joined the game')[0] + '加入了游戏')
                 neoThread = threading.Thread(target=neopixel('join'))
                 neoThread.start()
+                event('player16',line.split('joined the game')[0] + '加入了游戏')
             elif('was slain by' in line):
+                neoThread = threading.Thread(target=neopixel('kill'))
+                neoThread.start()
                 event('player16',line.split('was slain by')[0] + '被杀掉了')
-                neoThread = threading.Thread(target=neopixel('kill'))
-                neoThread.start()
             elif('fell from a high place' in line):
-                event('player16',line.split('fell from a high place')[0] + '摔死了')
                 neoThread = threading.Thread(target=neopixel('kill'))
                 neoThread.start()
+                event('player16',line.split('fell from a high place')[0] + '摔死了')
 
             msg += line
     if(len(msg.splitlines())>=5):
