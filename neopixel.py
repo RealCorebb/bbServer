@@ -71,6 +71,7 @@ animations = AnimationSequence(
     auto_clear=True,
 )
 
-while True:
-    time.sleep(0.01)
-    animations.animate()
+if __name__ == "__main__":
+    while True:
+        time.sleep(0.01)
+        animations.animate()
