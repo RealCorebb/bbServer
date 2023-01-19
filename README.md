@@ -1,12 +1,12 @@
 # bbServer  
 ![image](https://github.com/RealCorebb/bbServer/blob/main/IMG/bbServer.jpg?raw=true)
-## 又酷又迷你的服务器 服务器🖥️  
+## 又酷又迷你的服务器🖥️  
 
 RELEASES DATE: 2023/01/19  
 
 🐧QQ群（仅供交流）：647186542  
 🐦[Twitter](https://twitter.com/RealCorebb "@RealCorebb") @RealCorebb  
-▶️视频(Video):[Youtube](https://www.youtube.com/watch?v=yFprzIGSGpM "Youtube")[ Bilibili](https://www.bilibili.com/video/BV1q14y1W7TJ/ " Bilibili")  
+▶️视频(Video):[Youtube](https://www.youtube.com/watch?v=yFprzIGSGpM "Youtube")[ Bilibili](https://www.bilibili.com/video/BV1j24y1a7Ut/ " Bilibili")  
 
 # 禁止搬运到Gitee  
 
