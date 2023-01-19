@@ -14,12 +14,15 @@ startLoop()
 def getMC():
     print('start MC Monitor')
     while True:
-        server = JavaServer.lookup("127.0.0.1:25565")
-        status = server.status()
-        query = server.query()
+        try:
+            server = JavaServer.lookup("127.0.0.1:25565")
+            status = server.status()
+            query = server.query()
         #print(status.players.online)
         #print(query.players.names)
-        updateInfo(p=status.players.online,pl='  '.join(query.players.names))
+            updateInfo(p=status.players.online,pl='  '.join(query.players.names))
+        except Exception:
+            pass
         time.sleep(5)
 
 def getCPU():
@@ -31,11 +34,11 @@ def getCPU():
 
 def neopixel(type):
     print('start Neopixel')
-    if(type == 'join'):
+    if(type == 'j'):
         for i in range(0, 300):
             rainbow.animate()
             time.sleep(0.01)
-    elif(type == 'kill'):
+    elif(type == 'k'):
         for i in range(0, 200):
             redFastBlink.animate()
             time.sleep(0.01)
@@ -58,15 +61,15 @@ while p.poll() is None:
         line = data[1]
         if line:
             if('joined the game' in line):
-                neoThread = threading.Thread(target=neopixel('join'))
+                neoThread = threading.Thread(target=neopixel,args=("j"))
                 neoThread.start()
                 event('player16',line.split('joined the game')[0] + '加入了游戏')
             elif('was slain by' in line):
-                neoThread = threading.Thread(target=neopixel('kill'))
+                neoThread = threading.Thread(target=neopixel,args=("k"))
                 neoThread.start()
                 event('player16',line.split('was slain by')[0] + '被杀掉了')
             elif('fell from a high place' in line):
-                neoThread = threading.Thread(target=neopixel('kill'))
+                neoThread = threading.Thread(target=neopixel,args=("k"))
                 neoThread.start()
                 event('player16',line.split('fell from a high place')[0] + '摔死了')
 
