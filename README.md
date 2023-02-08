@@ -1,5 +1,5 @@
 # bbServer  
-![image](https://github.com/RealCorebb/bbServer/blob/main/IMG/bbServer.jpg?raw=true)
+![image](https://github.com/RealCorebb/bbServer/blob/master/IMG/bbServer.JPG?raw=true)
 ## 又酷又迷你的服务器🖥️  
 
 RELEASES DATE: 2023/01/19  
